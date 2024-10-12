@@ -1,0 +1,224 @@
+/* Add this to your CSS file */
+.bg-light-gray {
+    background-color: #d9d9d9; /* Light gray background */
+}
+
+.bg-light-blue {
+    background-color: #e0f7fa; /* Light blue background */
+}
+
+.bg-light-green {
+    background-color: #e8f5e9; /* Light green background */
+}
+
+.custom-button {
+    background-color: #8BC34A;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.custom-button:hover {
+    background-color: #007ac5; /* Darker shade on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+/* Optional: To position the buttons correctly */
+.left-5 {
+    left: 5%; /* Adjust left position */
+}
+
+.right-5 {
+    right: 5%; /* Adjust right position */
+}
+
+/* Add this to home.css if not already present */
+.each-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Adds padding around the slides */
+}
+
+.product-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Stack products vertically */
+}
+
+.product-container img {
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+.product-container img:hover {
+    transform: scale(1.05); /* Zoom effect on hover */
+}
+
+.product-container h3 {
+    margin-top: 10px;
+    font-size: 1rem; /* Adjusted font size */
+    font-weight: bold;
+}
+
+.product-container p {
+    color: #555;
+    font-size: 0.75rem; /* Adjusted font size */
+}
+
+/* New styles for the product slider arrows */
+.arrow-button {
+    background: transparent; /* No background */
+    border: none; /* No border */
+    font-size: 30px; /* Adjust size */
+    cursor: pointer; /* Pointer on hover */
+    color: #8BC34A; /* Arrow color */
+    position: absolute; /* Position absolute to overlay on the product slider */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Centering adjustment */
+    z-index: 20; /* Ensure it appears above products */
+}
+
+.arrow-button:hover {
+    color: #007ac5; /* Darker shade on hover */
+}
+
+.left-0 {
+    left: 10px; /* Adjust as needed */
+}
+
+.right-0 {
+    right: 10px; /* Adjust as needed */
+}
+
+/* Style for the underline */
+h2 span {
+    display: block;
+    position: relative;
+}
+
+h2 span:last-child {
+    background-color: #009688; /* Change this to your desired blue-green color */
+    height: 4px; /* Adjust height as needed */
+    width: 50%; /* Adjust width as needed */
+    margin: 0 auto; /* Center the underline */
+    border-radius: 2px; /* Optional: round the edges of the underline */
+}
+
+/* Add this to home.css */
+
+/* Scale effect on hover */
+.product-image {
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition for transform and opacity */
+}
+
+.product-image:hover {
+    transform: scale(1.1); /* Scale up the image on hover */
+    opacity: 0.9; /* Slightly fade the image on hover */
+}
+
+/* Add this to home.css */
+
+/* Initial hidden state for the product container */
+.product-container {
+    opacity: 0; /* Start invisible */
+    transform: translateY(20px); /* Start slightly below its final position */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
+}
+
+/* When visible, apply styles */
+.product-container.visible {
+    opacity: 1; /* Fade in */
+    transform: translateY(0); /* Move to its final position */
+}
+
+/* Style for the notification boxes */
+.notification-container {
+    display: flex;
+    justify-content: space-between; /* Space out notification boxes */
+    margin-top: 20px; /* Space above */
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+} 
+
+
+
+/* Base styles for notification boxes */
+.notification-box {
+    background-color: rgba(240, 240, 240, 0.8); /* Light gray background with transparency */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Increased padding inside the box for height */
+    width: 30%; /* Adjust width as needed */
+    height: 200px; /* Adjust height as needed */
+    position: relative; /* Position relative for absolute positioning of inner elements */
+    overflow: hidden; /* Hide overflowing text */
+    opacity: 0; /* Start invisible */
+    transform: translateY(20px); /* Start slightly below its final position */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition */
+}
+
+/* When the notification box is visible, apply styles */
+.notification-box.visible {
+    opacity: 1; /* Fade in */
+    transform: translateY(0); /* Move to its final position */
+}
+
+/* Specific styles for each notification box */
+.whats-new {
+    background-image: url('../assets/HomeNotification/1.jpg'); /* Path to the background image */
+    background-size: cover; /* Cover the entire box */
+    background-position: center; /* Center the background image */
+}
+
+.tender-notification {
+    background-image: url('../assets/HomeNotification/2.jpg'); /* Path to the background image */
+    background-size: cover; /* Cover the entire box */
+    background-position: center; /* Center the background image */
+}
+
+.employment-notification {
+    background-image: url('../assets/HomeNotification/3.jpg'); /* Path to the background image */
+    background-size: cover; /* Cover the entire box */
+    background-position: center; /* Center the background image */
+}
+
+.notification-box h3 {
+    font-size: 1.25rem; /* Font size for header */
+    margin-bottom: 10px; /* Margin below header */
+}
+
+/* New styles for scrolling text to move upwards */
+.scrolling-text {
+    position: absolute; /* Position absolutely within the box */
+    bottom: 0; /* Start from the bottom */
+    animation: scrollUp 10s linear infinite; /* Animation for scrolling upwards */
+}
+
+/* Keyframes for upward scrolling */
+@keyframes scrollUp {
+    0% {
+        transform: translateY(100%); /* Start from the bottom */
+    }
+    100% {
+        transform: translateY(-100%); /* Move to the top */
+    }
+}
+
+/* Scale effect on hover */
+.notification-box:hover {
+    transform: scale(1.05); /* Scale up the box on hover */
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
