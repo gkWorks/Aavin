@@ -50,7 +50,7 @@ const NavBar = () => {
         {/* About Us */}
         <li className="flex items-center transform transition-transform duration-300 hover:scale-110 hover:shadow-md">
           <InformationCircleIcon className="w-5 h-5 mr-2 hover:text-yellow-300 transition duration-300" />
-          <a href="#about" className="font-semibold hover:text-yellow-300 transition duration-300">About Us</a>
+          <a href="about" className="font-semibold hover:text-yellow-300 transition duration-300">About Us</a>
         </li>
 
         {/* Sections with sub-navigation */}
@@ -89,12 +89,12 @@ const NavBar = () => {
         
         <li className="flex items-center transform transition-transform duration-300 hover:scale-110 hover:shadow-md">
           <PhotoIcon className="w-5 h-5 mr-2 hover:text-yellow-300 transition duration-300" />
-          <a href="#gallery" className="font-semibold hover:text-yellow-300 transition duration-300">Gallery</a>
+          <a href="gallery" className="font-semibold hover:text-yellow-300 transition duration-300">Gallery</a>
         </li>
 
         <li className="flex items-center transform transition-transform duration-300 hover:scale-110 hover:shadow-md">
           <TrophyIcon className="w-5 h-5 mr-2 hover:text-yellow-300 transition duration-300" />
-          <a href="#achievements" className="font-semibold hover:text-yellow-300 transition duration-300">Achievements & Activities</a>
+          <a href="achievements" className="font-semibold hover:text-yellow-300 transition duration-300">Achievements & Activities</a>
         </li>
 
         <li className="flex items-center transform transition-transform duration-300 hover:scale-110 hover:shadow-md">

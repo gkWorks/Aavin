@@ -4,7 +4,7 @@ import footerLogo from "../assets/logo/footerLogo.png";
 const Footer = ({ className }) => {
   return (
     <>
-      <div className={`bg-[#007ac5] text-white py-8 w-full ${className}`}>
+      <div className={ `relative bg-[#007ac5] text-white py-8 w-full ${className}`}>
         <div className="container mx-auto px-4 flex flex-col md:flex-row justify-around items-center">
           {/* Logo Section */}
           <div className="flex flex-col items-center mb-6 md:mb-0 animate-logo"> {/* Added animation class */}
@@ -30,7 +30,7 @@ const Footer = ({ className }) => {
           </div>
 
           {/* Useful Links Section */}
-          <div className="mb-4 md:ml-4 animate-links"> {/* Added animation class */}
+          <div className="relative mb-4 md:ml-4 animate-links"> {/* Added animation class */}
             <h4 className="font-bold mb-2 text-center md:text-left">Useful Links:</h4>
             <ul className="flex flex-col space-y-1">
               <li>
@@ -52,7 +52,7 @@ const Footer = ({ className }) => {
           </div>
         </div>
       </div>
-      <footer className="bg-[#8BC34A] text-white text-center py-3 shadow-md">
+      <footer className="relative  bg-[#8BC34A] text-white text-center py-3 shadow-md">
         <p className="text-sm">Copyright © 2018. TNCMPFL. All rights reserved.</p>
       </footer>
     </>

@@ -1,0 +1,159 @@
+.about-section {
+  color: white;
+}
+
+.intro-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping to next line */
+  justify-content: center; /* Center the boxes */
+}
+
+.flex-box {
+  background: white; /* White background for boxes */
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden; /* Prevent overflow of content */
+  transition: transform 0.3s; /* Add hover transition */
+}
+
+.flex-box:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.box-content {
+  padding: 15px;
+  text-align: center; /* Center align text in boxes */
+  width: 250px;
+   height: 350px;
+}
+
+.box-image {
+  width: 100%;
+  height: 30%;
+  object-fit: cover;
+}
+.details-overlay {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.footer-section {
+  text-align: center;
+  margin-top: 20px;
+}
+.image-wrapper {
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(31, 41, 55, 0.7); /* Dark gray with opacity */
+}
+.box-content {
+  border: 1px solid rgba(0, 0, 0, 0.2); /* Light black border */
+  transition: transform 0.3s, box-shadow 0.3s; /* Add transitions for hover effects */
+}
+
+.box-content:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+from {
+  opacity: 0;
+  transform: translateY(30px);
+}
+to {
+  opacity: 1;
+  transform: translateY(0);
+}
+}
+
+.fade-in {
+opacity: 0;
+transform: translateY(30px);
+transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in.visible {
+opacity: 1;
+transform: translateY(0);
+}
+/* Modal styling */
+.modal-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background: rgba(0, 0, 0, 0.8);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 1000;
+}
+.modal-content {
+position: relative;
+max-width: 600px; /* Adjust width of modal content */
+margin: 0 auto;
+}
+
+
+.btn-prev, .btn-next {
+background: white;
+border: none;
+padding: 10px 15px;
+border-radius: 5px;
+cursor: pointer;
+}
+
+.btn-prev:hover, .btn-next:hover {
+background: #f0f0f0; /* Change color on hover */
+}
+
+.modal-image {
+width: 200px; /* Set width of the image */
+height: auto; /* Maintain aspect ratio */
+}
+
+.btn-prev,
+.btn-next {
+padding: 8px 12px;
+border: 1px solid #ccc;
+border-radius: 4px;
+transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-prev:hover,
+.btn-next:hover {
+background-color: #f0f0f0; /* Change to your desired hover color */
+border-color: #aaa;
+}
+.camera-gif {
+border-radius: 10px;
+filter: brightness(0.8); /* Slightly darken the GIF */
+}
+
+/* Example CSS for fade-in effect */
+.fade-in {
+opacity: 0;
+transition: opacity 0.5s ease-in-out;
+}
+
+.fade-in.visible {
+opacity: 1;
+}

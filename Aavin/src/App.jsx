@@ -14,6 +14,9 @@ import Products from './Pages/Products';
 import Tender from './Pages/Tender';
 import Form from './Pages/Form';
 import Enquiry from './Pages/Enquiry';
+import Aboutpage from './Pages/AboutPage/Aboutpage';
+import Gallery from './Pages/GalleryPage/Gallery';
+import Achievement from './Pages/AchievementPage/Activement';
 
 function App() {
   return (
@@ -24,6 +27,9 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/procurement" element={<Procurement />} />
+          <Route path="/about" element={<Aboutpage/>} />
+          <Route path="/gallery" element={<Gallery/>}/>
+          <Route path="/achievements" element={<Achievement/>}/>
           <Route path="/dairy" element={<Dairy />} />
           <Route path="/marketing" element={<Marketing />} />
           <Route path="/accounts" element={<Accounts />} />

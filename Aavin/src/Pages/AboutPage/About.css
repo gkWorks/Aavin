@@ -1,0 +1,88 @@
+.underline-title {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .underline-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px; /* Adjust this value to position the underline */
+    width: 50%;
+    height: 3px; /* Thickness of the underline */
+    background-color: #007ac5;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease-out;
+  }
+  
+  .animate-underline::after {
+    transform: scaleX(1);
+  }
+  /* arrow */
+  .watermark1 {
+    background-image: url('path/to/watermark1.png'); /* Replace with your watermark image */
+  }
+  
+  .watermark2 {
+    background-image: url('path/to/watermark2.png'); /* Replace with your watermark image */
+  }
+  
+  .watermark3 {
+    background-image: url('path/to/watermark3.png'); /* Replace with your watermark image */
+  }
+  
+  .box1, .box2, .box3 {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: white; /* Ensure background is white */
+  }
+  
+  .box1:hover, .box2:hover, .box3:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .arrow-box {
+    position: relative;
+    padding: 20px 20px 20px 30px; /* Adjust padding to make space for the arrow */
+  }
+  
+  
+  .container {
+    display: flex;
+  }
+  
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+  
+  .fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .arrow-box {
+    position: relative;
+    padding: 20px 20px 20px 30px; /* Adjust padding to make space for the arrow */
+  }
+  
+  
+  .scale-on-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .scale-on-hover:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  .arrow-box {
+    border-radius: 10px; /* Adjust the radius as needed */
+  }
+  
+  /* Add a light blue border */
+  .border-light-blue-500 {
+    border-color: #000000; /* Light blue color */
+  }
+  
