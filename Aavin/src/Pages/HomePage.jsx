@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'; 
 import slide1 from '../assets/Home Page slider/article.jpg'; 
 import slide2 from '../assets/Home Page slider/article (1).jpg';
-import slide3 from '../assets/Home Page slider/WhatsApp Image 2024-10-16 at 17.23.14_c5cc6f8c.jpg';
+import slide3 from '../assets/Home Page slider/56862323_365531840732609_633596186846035968_n.jpg';
 import product1 from '../assets/HomeOurProduct/Milk .jpg'; 
 import product2 from '../assets/HomeOurProduct/milkpeda.jpg';
 import product3 from '../assets/HomeOurProduct/Milk Shake.jpg';
@@ -17,7 +17,8 @@ import product7 from '../assets/HomeOurProduct/Milk .jpg';
 import product8 from '../assets/HomeOurProduct/ice cream...jpg';
 import event1 from '../assets/Event/2.jpg';
 import event2 from '../assets/Event/6-1.jpg';
-import event3 from '../assets/Event/aavinday.jpeg';
+import event3 from '../assets/Event/77307443_144001703671005_8132512259919314944_n.jpg';
+import event4 from '../assets/Event/79903328_159636608774181_5959946041565380608_n.jpg';
 
 const HomePage = () => {
   const slideRef = useRef();
@@ -187,13 +188,14 @@ const HomePage = () => {
           {[
             { id: 1, img: event1, description: "Parlour Opening on Jan 06, 2024" },
             { id: 2, img: event2, description: "Parlour with Amusement Park for Kids" },
-            { id: 3, img: event3, description: "Aavin Day" },
+            { id: 3, img: event3, description: "Childrens Day" },
+            { id: 4, img: event4, description: "Happy Christmas" },
             
           ].map(({ id, img, description }) => (
            
             <div key={id} className="bg-gradient-to-t from-blue-100 to-blue-400 p-4 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-1 h-72 mx-2 flex flex-col ">
               
-              <img src={img} alt={`Event ${id}`} className="w-full h-40 object-cover rounded-md mb-2" />
+              <img src={img} alt={`Event ${id}`} className="w-full h-52 object-cover rounded-md mb-2" />
               <p className="text-center text-md font-medium text-gray-700">{description}</p>
             
             </div>

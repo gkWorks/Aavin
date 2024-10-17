@@ -33,7 +33,7 @@ const Enquiry = () => {
           alt="Enquiry Background"
           className="w-full h-64 object-cover rounded-lg shadow-md"
         />
-        <h1 className="absolute inset-0 flex items-center justify-center text-4xl font-bold text-white bg-black bg-opacity-50 rounded-lg">
+        <h1 className="absolute inset-0 flex items-center justify-left pl-28 text-4xl font-bold text-white bg-black bg-opacity-50 rounded-lg">
           ENQUIRY
         </h1>
       </div>
@@ -102,6 +102,7 @@ const Enquiry = () => {
             >
               <option value="">Select Enquiry Type</option>
               <option value="general">Become a New Agent-Retailer / Wholesale Dealer</option>
+              <option value="internship">Internship </option>
               <option value="product">Sales Enquiry</option>
               <option value="pricing">Business Enquiry</option>
               <option value="services">Complain / Feedback /Suggestion</option>

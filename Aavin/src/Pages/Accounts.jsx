@@ -11,7 +11,7 @@ const Accounts = () => {
           alt="Procurement Background" 
           className="w-full h-64 object-cover rounded-lg shadow-md"
         />
-        <h1 className="absolute inset-0 flex items-center justify-center text-4xl font-bold text-white bg-black bg-opacity-50 rounded-lg">
+        <h1 className="absolute inset-0 flex items-center justify-left pl-28 text-4xl font-bold text-white bg-black bg-opacity-50 rounded-lg">
           ACCOUNTS
         </h1>
       </div>

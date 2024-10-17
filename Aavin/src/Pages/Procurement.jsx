@@ -1,8 +1,7 @@
 import React from 'react';
 import { FaTractor, FaUsers, FaTruck, FaMapMarkedAlt, FaRoute, FaHorseHead, FaTint, FaRoad } from 'react-icons/fa';
 import Proimg from '../assets/Procurement/about.jpg'; 
-import Route1 from '../assets/Procurement/1.jpg';
-import Route2 from '../assets/Procurement/2.jpg';
+import Route1 from '../assets/Procurement/1.jpg'
 import Route3 from '../assets/Procurement/3.jpg';
 import Route4 from '../assets/Procurement/4.jpg';
 import YourImage1 from '../assets/Procurement/ai.jpg';
@@ -20,7 +19,7 @@ const Procurement = () => {
           alt="Procurement Background" 
           className="w-full h-64 object-cover rounded-lg shadow-md"
         />
-        <h1 className="absolute inset-0 flex items-center justify-center text-4xl font-bold text-white bg-black bg-opacity-50 rounded-lg">PROCUREMENT</h1>
+        <h1 className="absolute inset-0 flex items-center justify-left pl-28 text-4xl font-bold text-white bg-black bg-opacity-50 rounded-lg">PROCUREMENT</h1>
       </div>
 
       {/* Section for data */}
@@ -72,18 +71,15 @@ const Procurement = () => {
       </div>
 
       {/* Milk Procurement Route Section */}
-      <div className="mt-8 p-6 bg-white rounded-lg shadow-lg animate__animated animate__fadeInUp">
+      <div className="mt-8 p-6 bg-white rounded-lg  shadow-lg animate__animated animate__fadeInUp">
         <h2 className="text-2xl font-semibold text-center text-blue-600 mb-6">Milk Procurement Route</h2>
-        <p className="text-lg text-center text-gray-700 mb-8">No. of Routes: 4</p>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <p className="text-lg text-center text-gray-700 mb-8">No. of Routes: 3</p>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 ml-72">
           <div className="relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105">
             <img src={Route1} alt="Kanyakumari" className="w-full h-40 object-cover brightness-200"/>
             <p className="absolute bottom-0 left-0 right-0 text-center bg-black bg-opacity-50 text-white py-2 font-semibold">Kanyakumari</p>
           </div>
-          <div className="relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105">
-            <img src={Route2} alt="Azhagappapuram" className="w-full h-40 object-cover brightness-200"/>
-            <p className="absolute bottom-0 left-0 right-0 text-center bg-black bg-opacity-50 text-white py-2 font-semibold">Azhagappapuram</p>
-          </div>
+          
           <div className="relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105">
             <img src={Route3} alt="Derisanamcope" className="w-full h-40 object-cover brightness-200"/>
             <p className="absolute bottom-0 left-0 right-0 text-center bg-black bg-opacity-50 text-white py-2 font-semibold">Derisanamcope</p>

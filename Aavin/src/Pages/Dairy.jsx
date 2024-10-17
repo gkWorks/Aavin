@@ -1,14 +1,14 @@
 import React from 'react';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
-import Image1 from '../assets/Dairy/16.jpg';
-import Image2 from '../assets/Dairy/17.jpg';
-import Image3 from '../assets/Dairy/18.jpg';
-import Image4 from '../assets/Dairy/19.jpg';
-import Image5 from '../assets/Dairy/20.jpg';
+import Image1 from '../assets/Dairy/616K5njRGfL.jpg';
+import Image2 from '../assets/Dairy/75137807_144938300244012_7355363663152152576_n.jpg';
+import Image3 from '../assets/Dairy/75636121_146164043454771_8953216373438283776_n.jpg';
+import Image4 from '../assets/Dairy/74698853_146622713408904_9111728605422944256_n.jpg';
+
 
 const Dairy = () => {
-  const images = [Image1, Image2, Image3, Image4, Image5];
+  const images = [Image1, Image2, Image3, Image4];
 
   return (
     <div className="bg-gray-100 p-8 flex mt-52">
