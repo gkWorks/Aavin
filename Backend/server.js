@@ -1,5 +1,4 @@
 require('dotenv').config(); // Load environment variables
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -15,14 +14,18 @@ const milkRoutes = require('./routes/milk');
 const iceCreamRoutes = require('./routes/iceCreamRoutes');
 const productRoute = require('./routes/productRoute');
 const emailRoutes = require('./routes/emailRoutes');
-
+const About = require("./routes/Aboutroute");
+const galleryRoutes = require('./routes/Galleryroute');
+const dactivementRoutes = require('./routes/activementroute');
+const youtubeLinkRoutes = require('./routes/YoutubeLink'); // Correct route import
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+const path = require('path');
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
+app.use('/GalleryImg', express.static(path.join(__dirname, 'Galleryimg')));
 
 //For Email
 app.use(bodyParser.json());
@@ -44,7 +47,10 @@ app.use('/api/milk', milkRoutes);
 app.use('/api/icecreams', iceCreamRoutes);
 app.use('/api/products', productRoute);
 app.use('/api', emailRoutes); 
-
+app.use("/api/About", About);
+app.use('/api', galleryRoutes);
+app.use('/api/dactivement', dactivementRoutes);
+app.use('/api', youtubeLinkRoutes); // Make sure this route is correctly handled
 // Check the loaded environment variable
 console.log('MongoDB URI:', process.env.MONGO_URI); // Debugging line
 

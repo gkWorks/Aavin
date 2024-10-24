@@ -148,12 +148,4 @@ border-radius: 10px;
 filter: brightness(0.8); /* Slightly darken the GIF */
 }
 
-/* Example CSS for fade-in effect */
-.fade-in {
-opacity: 0;
-transition: opacity 0.5s ease-in-out;
-}
 
-.fade-in.visible {
-opacity: 1;
-}

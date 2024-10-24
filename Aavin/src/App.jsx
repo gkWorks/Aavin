@@ -26,6 +26,9 @@ import Dforms from './DashBoardPages/Dforms';
 import Dproduct from './DashBoardPages/Dproduct';
 import Dmilk from './DashBoardPages/Dmilk';
 import DiceCream from './DashBoardPages/DiceCream';
+import Dabout from './DashBoardPages/Dabout';
+import Dachievement from './DashBoardPages/Dachievement';
+import Dgallery from './DashBoardPages/Dgallery';
 
 
 function Layout() {
@@ -60,6 +63,9 @@ function Layout() {
             <Route path="/dashboard/dproduct" element={<Dproduct />} />
             <Route path="/dashboard/dmilk" element={<Dmilk />} />
             <Route path="/dashboard/diceCream" element={<DiceCream />} />
+            <Route path="/dashboard/dabout" element={<Dabout/>} />
+            <Route path="/dashboard/dachievement" element={<Dachievement/>} />
+            <Route path="/dashboard/dgallery" element={<Dgallery/>} />
             {/* Add more dashboard-specific routes as needed */}
           </Route>
         </Routes>

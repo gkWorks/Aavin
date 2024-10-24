@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import aboutimg from '../../assets/AboutPageImg/about.jpg';
 import milkGif from '../../assets/AboutPageImg/milky.gif';
-import pointerGif from '../../assets/AboutPageImg/giphy.gif'; // GIF version of the pointer
-import pointerStatic from '../../assets/AboutPageImg/static.gif'; // Static version of the pointer
-import historyimg from '../../assets/AboutPageImg/history.png';
-import historyimg2 from '../../assets/AboutPageImg/history2.png';
+import pointerGif from '../../assets/AboutPageImg/giphy.gif'; // GIF
+import pointerStatic from '../../assets/AboutPageImg/static.gif'; // Static version of the pointer 
 import '../AboutPage/About.css';
 import { FaHandPointRight } from 'react-icons/fa';
 import numplaceholder from '../../assets/AboutPageImg/numholder.webp'
@@ -12,20 +10,39 @@ import arrowbox from '../../assets/AboutPageImg/arrowbox.gif';
 import dobule from '../../assets/AboutPageImg/dobule.png';
 import { useInView } from 'react-intersection-observer';
 
-
-
 const Aboutpage = () => {
-  const [loading, setLoading] = useState(true); 
-  const [isScrolling, setIsScrolling] = useState(false); // Track scrolling status
-  const [hasScrolled, setHasScrolled] = useState(false); // Track if the page has been scrolled once
-  const [cadreStrength, setCadreStrength] = useState(0); // State for total cadre strength
-  const [employees, setEmployees] = useState(0); // State for number of employees
-  const headingsRef = useRef([]); // References to headings 
-  const [cadreYear, setCadreYear] = useState(0); // Directly set cadreYear to 1982
-  const [cadreBoard, setCadreBoard] = useState(0); // Directly set cadreYear to 1982
+  const [loading, setLoading] = useState(true);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const [cadreStrength, setCadreStrength] = useState(0);
+  const [employees, setEmployees] = useState(0);
+  const [cadreYear, setCadreYear] = useState(0);
+  const [cadreBoard, setCadreBoard] = useState(0);
+  const [aboutContent, setAboutContent] = useState({
+    PREAMBLE: 'Loading...',
+    INTRODUCTION: 'Loading...',
+    MINISTER: 'Loading...',
+    PRINCIPAL_SECRETARY: 'Loading...',
+    COMMISSIONER: 'Loading',
+    UNION_ORGANIZATION_DETAILS: {
+      dateOfRegistration: 'Loading...',
+      phoneNo: 'Loading...',
+      faxNo: 'Loading...',
+      email: 'Loading...',
+      website: 'Loading...',
+      UnionregistrationNo: '',
+      FSSAILicenseNo: '',
+      Dated: '',
+      BoardOfDirectors: '',
+      YearofEstablishment: '',
+      TotalCadreStrength: '',
+      NoofEmployeesworking: ''
+    },
+  });
+  const [fetchedImages, setFetchedImages] = useState([]);
+  const headingsRef = useRef([]);
   const { ref: leftRef, inView: leftVisible } = useInView({ triggerOnce: true });
 
-  // Scroll-triggered animation and pointer handling
   useEffect(() => {
     const handleScroll = () => {
       if (!hasScrolled) {
@@ -53,78 +70,69 @@ const Aboutpage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [hasScrolled]);
 
-  // Simulate loading before rendering the page
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000);
-    return () => clearTimeout(timer);
+    const fetchAboutContent = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/about');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setAboutContent(data);
+        setFetchedImages(data.IMAGECONTENT || []);
+        setCadreStrength(data.UNION_ORGANIZATION_DETAILS?.TotalCadreStrength || 0);
+        setEmployees(data.UNION_ORGANIZATION_DETAILS?.NoofEmployeesworking || 0);
+        setCadreYear(data.UNION_ORGANIZATION_DETAILS?.YearofEstablishment || 1982);
+        setCadreBoard(data.UNION_ORGANIZATION_DETAILS?.BoardOfDirectors || 0);
+      } catch (error) {
+        console.error('Error fetching content:', error);
+        setAboutContent({
+          PREAMBLE: 'No preamble available.',
+          INTRODUCTION: 'No introduction available.',
+          MINISTER: 'No minister available.',
+          PRINCIPAL_SECRETARY: 'No principal secretary available.',
+          COMMISSIONER: 'No commissioner available.',
+          UNION_ORGANIZATION_DETAILS: {
+            dateOfRegistration: 'No details available.',
+            phoneNo: 'No details available.',
+            faxNo: 'No details available.',
+            email: 'No details available.',
+            website: 'No details available.',
+          },
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAboutContent();
   }, []);
 
-  // Count increment effect
-  useEffect(() => {
-    const cadreStrengthTarget = 120;
-    const employeesTarget = 150;
-
-    const incrementCount = (target, setter) => {
-      let count = 0;
-      const interval = setInterval(() => {
-        if (count < target) {
-          count++;
-          setter(count);
-        } else {
-          clearInterval(interval);
-        }
-      }, 60); // Adjust speed of count increment here
-    };
-
-    if (hasScrolled) {
-      incrementCount(cadreStrengthTarget, setCadreStrength);
-      incrementCount(employeesTarget, setEmployees);
+    // Count increment animation
+    useEffect(() => {
+      if (hasScrolled) {
+        const incrementCount = (target, setter, delay) => {
+          let count = 0;
+          const interval = setInterval(() => {
+            if (count < target) {
+              count++;
+              setter(count);
+            } else {
+              clearInterval(interval);
+            }
+          }, delay);
+        };
+  
+        incrementCount(cadreStrength, setCadreStrength, 100);
+        incrementCount(employees, setEmployees, 100);
+        incrementCount(cadreYear, setCadreYear, 2);
+        incrementCount(cadreBoard, setCadreBoard, 200);
+      }
+    }, [hasScrolled]);
+  
+    if (loading) {
+      return <div>Loading...</div>;
     }
-  }, [hasScrolled]);
-  // Count increment effect
-  useEffect(() => {
-    const cadreYearTarget = 1950;
-
-
-    const incrementCount = (target, setter) => {
-      let count = 0;
-      const interval = setInterval(() => {
-        if (count < target) {
-          count++;
-          setter(count);
-        } else {
-          clearInterval(interval);
-        }
-      }, 2); // Adjust speed of count increment here
-    };
-
-    if (hasScrolled) {
-
-      incrementCount(cadreYearTarget, setCadreYear);
-    }
-  }, [hasScrolled]);
-
-  useEffect(() => {
-    const cadreBoardTarget = 17;
-
-
-    const incrementCount = (target, setter) => {
-      let count = 0;
-      const interval = setInterval(() => {
-        if (count < target) {
-          count++;
-          setter(count);
-        } else {
-          clearInterval(interval);
-        }
-      }, 500); // Adjust speed of count increment here
-    };
-
-    if (hasScrolled) {
-
-      incrementCount(cadreBoardTarget, setCadreBoard);
-    }
-  }, [hasScrolled]);
 
   if (loading) {
     return (
@@ -157,28 +165,14 @@ const Aboutpage = () => {
         >
           PREAMBLE
         </h2>
-        <p className="text-lg pr-32 pt-4">
-          The Dairy Development Department was established in 1958 in Tamilnadu.
-          The administrative and statutory control over all the milk cooperatives in the State
-          were transferred to the Dairy Development Department on 1.8.1965. The Commissioner for Milk
-          Production and Dairy Development was made as the functional Registration under the Tamilnadu
-          Cooperative Societies Act. Our Union “THE KANYAKUMARI DISTRICT COOPERATIVE MILK PRODUCERS UNION”
-          with the adoption of 'Anand pattern' in the State of Tamilnadu, works under the control of
-          Tamilnadu Co-operative Milk Producers' Federation Limited, Chennai.
-        </p>
+        <p className="text-lg pr-32 pt-4">{aboutContent.PREAMBLE}</p>
         <h2
           ref={(el) => (headingsRef.current[1] = el)}
           className="text-2xl font-bold mb-4 pt-7 underline-title"
         >
           INTRODUCTION
         </h2>
-        <p className="text-lg pr-32 pt-4">
-          The Kanyakumari District Cooperative Milk Producers Union was first registered as Nanjil Nadu Milk
-          Supply Society in the year 25th January 1949 and started its functioning from 7th February 1950. 
-          Later it was elevated as Nanjil Nadu Cooperative Milk Supply Union and then converted to Kanyakumari
-          District Cooperative Milk Producers Union with effect from 16th February 1982.
-        </p>
-        
+        <p className="text-lg pr-32 pt-4">{aboutContent.INTRODUCTION}</p>
         {/* Departmental Information - Shown after scroll */}
         {hasScrolled && (
           <>
@@ -199,7 +193,7 @@ const Aboutpage = () => {
                     />
                     <span>
                       Honorable Minister for Milk and Dairy Development Department: 
-                      <span className='font-bold'> Thiru S.M. Nasar</span>
+                      <span className='font-bold'>{aboutContent.MINISTER}</span>
                     </span>
                   </li>
                   <li className="flex items-center mb-4 pb-5">
@@ -210,7 +204,7 @@ const Aboutpage = () => {
                     />
                     <span>
                       Principal Secretary to Government (Department of Animal Husbandry, Dairying and Fisheries): 
-                      <span className='font-bold'> Thiru.Dr. K.Gopal IAS</span>
+                      <span className='font-bold'>{aboutContent.PRINCIPAL_SECRETARY}</span>
                     </span>
                   </li>
                   <li className="flex items-center mb-4 pb-5">
@@ -221,7 +215,7 @@ const Aboutpage = () => {
                     />
                     <span>
                       Commissioner for Milk Production and Dairy Development, Managing Director of the Tamilnadu Cooperative Milk Producers Federation Limited: 
-                      <span className='font-bold'> Dr.N.Subbaiyan, I.A.S.</span>
+                      <span className='font-bold'>{aboutContent.COMMISSIONER}</span>
                     </span>
                   </li>
                 </ul>
@@ -299,26 +293,26 @@ const Aboutpage = () => {
             
             />
              <ul className="list-none text-gray-600 pt-10 pl-5 space-y-2">
-            <li className="flex items-center">
-              <FaHandPointRight className="mr-2" />
-              Date of Registration: 25.01.1949
-            </li>
-            <li className="flex items-center">
-              <FaHandPointRight className="mr-2" />
-              Phone No: 04652-230356
-            </li>
-            <li className="flex items-center">
-              <FaHandPointRight className="mr-2" />
-              Fax No: 04652-230785
-            </li>
-            <li className="flex items-center">
-              <FaHandPointRight className="mr-2" />
-              Email: aavinkk@gmail.com
-            </li>
-            <li className="flex items-center">
-              <FaHandPointRight className="mr-2" />
-               Website:www.aavinkanyakumari.com
-            </li>
+             <li className="flex items-center">
+                    <FaHandPointRight className="mr-2" />
+                    Date of Registration: <span className='font-bold font-mono pl-2'>{aboutContent.UNION_ORGANIZATION_DETAILS.dateOfRegistration}</span>
+                  </li>
+                  <li className="flex items-center">
+                    <FaHandPointRight className="mr-2" />
+                    Phone No: <span className='font-bold font-mono pl-2'>{aboutContent.UNION_ORGANIZATION_DETAILS.phoneNo}</span>
+                  </li>
+                  <li className="flex items-center">
+                    <FaHandPointRight className="mr-2" />
+                    Fax No: <span className='font-bold font-mono pl-2'>{aboutContent.UNION_ORGANIZATION_DETAILS.faxNo}</span>
+                  </li>
+                  <li className="flex items-center">
+                    <FaHandPointRight className="mr-2" />
+                    Email: <span className='font-bold font-mono pl-2'>{aboutContent.UNION_ORGANIZATION_DETAILS.email}</span>
+                  </li>
+                  <li className="flex items-center">
+                    <FaHandPointRight className="mr-2" />
+                    Web: <span className='font-bold font-mono pl-2'>{aboutContent.UNION_ORGANIZATION_DETAILS.website}</span>
+                  </li> 
             <br/>
           </ul>
           </div>
@@ -382,21 +376,21 @@ const Aboutpage = () => {
             
             />
              <ul className="list-none text-gray-600 pt-12 pl-5 space-y-2">
-            <li className="flex items-center">
+             <li className="flex items-center">
               <FaHandPointRight className="mr-2" />
-              Union Registration No : 2946
-            </li>
-            <li className="flex items-center">
+              Union Registration No: <span className='font-bold font-mono pl-2'>{aboutContent.UNION_ORGANIZATION_DETAILS.UnionregistrationNo}</span>
+               </li>
+               <li className="flex items-center">
               <FaHandPointRight className="mr-2" />
-              FSSAI License No: 12419009000557
-            </li>
-            <li className="flex items-center">
-            <FaHandPointRight className="mr-2" />Dated : 04.09.2021
-            </li>
+              FSSAI License No: <span className='font-bold font-mono pl-2'>{aboutContent.UNION_ORGANIZATION_DETAILS.FSSAILicenseNo}</span>
+               </li>
+               <li className="flex items-center">
+              <FaHandPointRight className="mr-2" />
+              Dated : <span className='font-bold font-mono pl-2'>{aboutContent.UNION_ORGANIZATION_DETAILS.Dated}</span>
+               </li>
             </ul>
           </div>
           <div
-
             className={`relative arrow-box overflow-hidden rounded-lg shadow-lg border-2 border-light-blue-500 bg-blue-100 p-4 transition-transform duration-1000 delay-300 ease-in-out ${
                 leftVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             } scale-on-hover`}
@@ -427,27 +421,15 @@ const Aboutpage = () => {
 
       {/* Right Side Images */}
       <div className="w-1/3 flex flex-col justify-center items-center space-y-5">
-        <img
-          src={historyimg}
-          alt="History"
-          className={`w-full h-auto rounded-lg mb-4 transition-opacity duration-1000 delay-400 ease-in-out`}
-        />
-        <img
-          src={historyimg2}
-          alt="History 2"
-          className={`w-full h-auto rounded-lg transition-opacity duration-1200 delay-600 ease-in-out`}
-        />
-        <img
-          src={historyimg}
-          alt="History 2"
-          className={`w-full h-auto rounded-lg transition-opacity duration-1400 delay-800 ease-in-out`}
-        />
-        <img
-          src={historyimg2}
-          alt="History 2"
-          className={`w-full h-auto rounded-lg transition-opacity duration-1400 delay-800 ease-in-out`}
-        />
-      </div>
+            {fetchedImages.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt={`History ${index + 1}`}
+                className={`w-full h-auto rounded-lg transition-opacity duration-1000 delay-${(index + 4) * 200} ease-in-out`}
+              />
+            ))}
+          </div>
     </div>
     <div className="container mx-auto p-5 pl-36">
   <div className="flex flex-col gap-5">

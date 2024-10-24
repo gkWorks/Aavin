@@ -92,7 +92,7 @@ const Dashboard = () => {
           <li className="flex items-center transform transition-transform duration-300 hover:scale-110 hover:shadow-md">
             <InformationCircleIcon className="w-5 h-5 mr-2 hover:text-yellow-300 transition duration-300" />
             <Link
-              to="/dashboard/about"
+              to="/dashboard/dabout"
               className="font-semibold hover:text-yellow-300 transition duration-300"
             >
               About Us
@@ -182,7 +182,7 @@ const Dashboard = () => {
           <li className="flex items-center transform transition-transform duration-300 hover:scale-110 hover:shadow-md">
             <PhotoIcon className="w-5 h-5 mr-2 hover:text-yellow-300 transition duration-300" />
             <Link
-              to="/dashboard/gallery"
+              to="/dashboard/dgallery"
               className="font-semibold hover:text-yellow-300 transition duration-300"
             >
               Gallery
@@ -193,7 +193,7 @@ const Dashboard = () => {
           <li className="flex items-center transform transition-transform duration-300 hover:scale-110 hover:shadow-md">
             <TrophyIcon className="w-5 h-5 mr-2 hover:text-yellow-300 transition duration-300" />
             <Link
-              to="/dashboard/achievements"
+              to="/dashboard/dachievement"
               className="font-semibold hover:text-yellow-300 transition duration-300"
             >
               Achievements & Activities

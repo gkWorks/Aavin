@@ -1,47 +1,63 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import '../GalleryPage/Gallery.css';
-import img1 from '../../assets/GalleryImg/1.jpg';
-import img2 from '../../assets/GalleryImg/2.jpg';
-import img3 from '../../assets/GalleryImg/3.jpg';
-import img4 from '../../assets/GalleryImg/4.jpg';
-import img5 from '../../assets/GalleryImg/5.jpg';
-import img6 from '../../assets/GalleryImg/6.jpg';
-import img7 from '../../assets/GalleryImg/7.jpg';
-import img9 from '../../assets/GalleryImg/9.jpg';
-import img10 from '../../assets/GalleryImg/10.jpg';
-import camera from '../../assets/GalleryImg/aavingalleyphoto.gif';
 import camerastaic from '../../assets/GalleryImg/cameraStatic.png';
+import camera from '../../assets/GalleryImg/aavingalleyphoto.gif';
 
 const Gallery = () => {
-  const sectionsRef = useRef([]);
+  const [galleryItems, setGalleryItems] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [selectedGalleryImages, setSelectedGalleryImages] = useState([]);
+  const [selectedGalleryDetails, setSelectedGalleryDetails] = useState({ title: '', description: '' });
   const [showCamera, setShowCamera] = useState(true); // State to control image visibility
 
-  // Intersection Observer for fade-in effect
+  // Fetch gallery items on component mount
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    sectionsRef.current.forEach((section) => {
-      if (section) observer.observe(section);
-    });
-
-    return () => {
-      sectionsRef.current.forEach((section) => {
-        if (section) observer.unobserve(section);
-      });
+    const fetchGalleryItems = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/gallery');
+        setGalleryItems(response.data);
+      } catch (error) {
+        console.error('Error fetching gallery items:', error);
+      }
     };
+    fetchGalleryItems();
   }, []);
+
+  // Handle box click: fetch details and images of the selected gallery item
+  const handleBoxClick = async (galleryId) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/gallery/${galleryId}`);
+      const { title, description, images } = response.data;
+
+      setSelectedGalleryImages(images); // Set the gallery images
+      setSelectedGalleryDetails({ title, description }); // Set title and description
+      setCurrentImageIndex(0); // Reset to first image
+      setIsOpen(true); // Open popup
+      document.body.style.overflow = 'hidden'; // Disable scrolling when popup is open
+    } catch (error) {
+      console.error('Error fetching gallery item details:', error);
+    }
+  };
+
+  const closePopup = () => {
+    setIsOpen(false);
+    document.body.style.overflow = 'auto'; // Restore scrolling
+  };
+
+  const goToPreviousImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? selectedGalleryImages.length - 1 : prevIndex - 1
+    );
+  };
+
+  const goToNextImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === selectedGalleryImages.length - 1 ? 0 : prevIndex + 1
+    );
+  };
 
   useEffect(() => {
     // Set timeout to switch from camera to camerastaic
@@ -52,54 +68,32 @@ const Gallery = () => {
     return () => clearTimeout(timer); // Cleanup timer on component unmount
   }, []);
 
-  const boxes = [
-    { img: img1, title: "About Our Mission", description: "We strive to deliver exceptional quality and innovative solutions for our clients." },
-    { img: img2, title: "Our Values", description: "Integrity, excellence, and teamwork are at the heart of everything we do." },
-    { img: img3, title: "Our Journey", description: "Discover how we evolved over the years and our impact on the industry." },
-    { img: img5, title: "Community Engagement", description: "We actively engage with our community to make a positive impact." },
-    { img: img6, title: "Innovation Focus", description: "Innovation drives us to create cutting-edge solutions for our clients." },
-    { img: img7, title: "Our Commitment", description: "We are committed to continuous improvement and excellence in our services." },
-    { img: img9, title: "Customer Satisfaction", description: "Our clients' satisfaction is our top priority, driving us to improve continually." },
-    { img: img10, title: "Future Vision", description: "We aim to lead our industry into the future with innovative solutions." },
-    { img: img4, title: "Future Vision", description: "We aim to lead our industry into the future with innovative solutions." },
-    { img: img1, title: "About Our Mission", description: "We strive to deliver exceptional quality and innovative solutions for our clients." },
-    { img: img2, title: "Our Values", description: "Integrity, excellence, and teamwork are at the heart of everything we do." },
-    { img: img3, title: "Our Journey", description: "Discover how we evolved over the years and our impact on the industry." },
-    { img: img5, title: "Community Engagement", description: "We actively engage with our community to make a positive impact." },
-    { img: img6, title: "Innovation Focus", description: "Innovation drives us to create cutting-edge solutions for our clients." },
-    { img: img7, title: "Our Commitment", description: "We are committed to continuous improvement and excellence in our services." },
-    { img: img9, title: "Customer Satisfaction", description: "Our clients' satisfaction is our top priority, driving us to improve continually." },
-    { img: img10, title: "Future Vision", description: "We aim to lead our industry into the future with innovative solutions." },
-    { img: img4, title: "Future Vision", description: "We aim to lead our industry into the future with innovative solutions." },
-    { img: img10, title: "Future Vision", description: "We aim to lead our industry into the future with innovative solutions." },
-    { img: img4, title: "Future Vision", description: "We aim to lead our industry into the future with innovative solutions." },
-  ];
+  useEffect(() => {
+    const handleScrollAnimation = () => {
+      const boxes = document.querySelectorAll('.box-content');
+      boxes.forEach((box, index) => {
+        const boxPosition = box.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
 
-  // Handlers for popup functionality
-  const handleBoxClick = (index) => {
-    setCurrentImageIndex(index);
-    setIsOpen(true);
-    document.body.style.overflow = 'hidden'; // Prevent scrolling
-  };
+        // Trigger animation when the box is in view
+        if (boxPosition < windowHeight - 100) {
+          box.style.animation = `fadeIn 1s ease-in-out forwards ${index * 0.1}s`;
+        }
+      });
+    };
 
-  const closePopup = () => {
-    setIsOpen(false);
-    document.body.style.overflow = 'auto'; // Restore scrolling
-  };
+    window.addEventListener('scroll', handleScrollAnimation);
 
-  const goToPreviousImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? boxes.length - 1 : prevIndex - 1));
-  };
-
-  const goToNextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex === boxes.length - 1 ? 0 : prevIndex + 1));
-  };
+    return () => {
+      window.removeEventListener('scroll', handleScrollAnimation);
+    };
+  }, []);
 
   return (
     <div className={`gallery-container ${isOpen ? 'blur-background' : ''}`}>
       <div className="about-section p-4 pt-60 px-8 md:px-36">
         {/* Main heading section */}
-        <div className="intro-section text-center mb-8 fade-in" ref={el => sectionsRef.current[0] = el}>
+        <div className="intro-section text-center mb-8">
           <div className="relative inline-block">
             <h1
               className="section-title underline-title text-2xl font-bold relative text-black p-2 pr-6"
@@ -124,31 +118,33 @@ const Gallery = () => {
             Learn more about our journey and the key highlights of our team. Explore the details in the boxes below!
           </p>
         </div>
-
-        {/* Grid layout for image and details section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-          {boxes.map((box, index) => (
-            <div
-              key={index}
-              className="flex-box fade-in"
-              ref={el => sectionsRef.current[index + 1] = el}
-              onClick={() => handleBoxClick(index)} // Open popup on click
-            >
-              <div className="box-content bg-white shadow-lg rounded-lg p-4 relative overflow-hidden border" style={{ width: '250px', height: '300px' }}>
-                <div className="image-wrapper p-2">
-                  <img src={box.img} alt={box.title} className="box-image mb-2 rounded-lg" style={{ width: '100%', height: '70%' }} />
-                </div>
-                <div className="details-overlay text-black">
-                  <h4 className="text-lg font-semibold ">{box.title}</h4>
-                  <p>{box.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+  {galleryItems.map((box, index) => (
+    <div
+      key={box._id}
+      className={`box-content ${index < 4 ? 'no-animation' : ''} bg-white shadow-lg rounded-lg p-2 relative overflow-hidden border cursor-pointer`}
+      onClick={() => handleBoxClick(box._id)}
+      style={{ width: '230px', height: '250px', opacity: index < 4 ? 1 : 0 }} // First row should have full opacity initially
+    >
+      <div className="image-wrapper p-2">
+        <img
+          src={`http://localhost:5000${box.images[0]}`}
+          alt={box.title}
+          className="box-image mb-2 rounded-lg"
+          style={{ width: '250px', height: '150px', objectFit: 'cover' }}
+        />
+      </div>
+      <div className="details-overlay text-black">
+        <h4 className="text-lg font-semibold">{box.title}</h4>
+        <p>{box.description}</p>
+      </div>
+    </div>
+  ))}
+</div>
+
 
         {/* Popup Modal */}
-        {isOpen && (
+        {isOpen && selectedGalleryImages.length > 0 && (
           <div className="modal-overlay text-black pt-18">
             <div className="modal-content relative bg-white pl-2 pr-1 pt-10 pb-10 rounded-lg shadow-lg">
               <button className="absolute top-2 right-2 text-black" onClick={closePopup}>✖</button>
@@ -156,19 +152,24 @@ const Gallery = () => {
                 <button className="btn-prev flex items-center text-sm" onClick={goToPreviousImage} aria-label="Previous Image">
                   <FaChevronLeft className="mr-1" />
                 </button>
-                <img src={boxes[currentImageIndex].img} alt={boxes[currentImageIndex].title} className="modal-image mb-4 rounded-lg" style={{ width: '500px', height: 'auto' }} />
-                <button className="btn-next flex items-center text-sm" onClick={goToNextImage} aria-label="Next Image">
+                <img
+                  src={`http://localhost:5000${selectedGalleryImages[currentImageIndex]}`} // Display current image
+                  alt={`Gallery Image ${currentImageIndex + 1}`}
+                  className="modal-image mb-1 rounded-lg"
+                  style={{ width: '500px', height: 'auto' }}
+                />
+                <button className="btn-next flex items-center text-xs" onClick={goToNextImage} aria-label="Next Image">
                   <FaChevronRight className="ml-1" />
                 </button>
               </div>
-              <h4 className="text-lg font-semibold mb-2 text-black mt-4">{boxes[currentImageIndex].title}</h4>
-              <p>{boxes[currentImageIndex].description}</p>
+              <h4 className="text-lg font-semibold mb-2 text-black mt-2 pl-3">
+                {selectedGalleryDetails.title}
+              </h4>
+              <p className='font-thin text-xs pl-5 pr-5'>{selectedGalleryDetails.description}</p>
             </div>
           </div>
         )}
-
-        {/* Footer section */}
-        <div className="footer-section text-center mt-8 fade-in" ref={el => sectionsRef.current[boxes.length + 1] = el}>
+        <div className="footer-section text-center mt-8">
           <h3 className="footer-heading text-2xl font-bold text-black">Thank You for Visiting!</h3>
           <p className="footer-text mt-2 text-black">
             We hope you found our information helpful. Stay tuned for more exciting updates and content from our team.
