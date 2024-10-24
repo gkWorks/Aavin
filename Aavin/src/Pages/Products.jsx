@@ -5,6 +5,7 @@ import Proimg from '../assets/Procurement/about.jpg';
 import AllProducts from './Products/AllProducts';
 import Milk from './Products/Milk';
 import IceCream from './Products/IceCream';
+import { useLanguage } from '../TranslateBtn/LanguageContext';
 
 const Products = () => {
   const [selectedTab, setSelectedTab] = useState("all");
@@ -12,6 +13,8 @@ const Products = () => {
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
   };
+
+  const { isRegional } = useLanguage();
 
   return (
     <div className='mt-52'>
@@ -22,7 +25,7 @@ const Products = () => {
           alt="Procurement Background" 
           className="w-full h-64 object-cover rounded-lg shadow-md"
         />
-        <h1 className="absolute inset-0 flex items-center justify-left pl-28 text-4xl font-bold text-white bg-black bg-opacity-50 rounded-lg">PRODUCTS</h1>
+        <h1 className="absolute inset-0 flex items-center justify-left pl-28 text-4xl font-bold text-white bg-black bg-opacity-50 rounded-lg">{isRegional ? "தயாரிப்புகள்" : "PRODUCTS"}</h1>
       </div>
 
       {/* Navigation Tabs */}
@@ -32,21 +35,21 @@ const Products = () => {
           className={`flex items-center px-4 py-2 font-semibold text-lg rounded-full shadow-md ${selectedTab === "all" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800 hover:bg-blue-400 hover:text-white"} transition duration-300`}
         >
           <FaBox className="mr-2" />
-          Products
+          {isRegional ? "தயாரிப்பு" : "Product"}
         </button>
         <button 
           onClick={() => handleTabClick("milk")} 
           className={`flex items-center px-4 py-2 font-semibold text-lg rounded-full shadow-md ${selectedTab === "milk" ? "bg-green-500 text-white" : "bg-gray-200 text-gray-800 hover:bg-green-400 hover:text-white"} transition duration-300`}
         >
           <LuMilk className="mr-2" />
-          Milk
+          {isRegional ? "பால்" : "Milk"}
         </button>
         <button 
           onClick={() => handleTabClick("ice-cream")} 
           className={`flex items-center px-4 py-2 font-semibold text-lg rounded-full shadow-md ${selectedTab === "ice-cream" ? "bg-pink-500 text-white" : "bg-gray-200 text-gray-800 hover:bg-pink-400 hover:text-white"} transition duration-300`}
         >
           <FaIceCream className="mr-2" />
-          Ice Cream
+          {isRegional ? "ஐஸ்கிரீம்" : "Ice Cream"}
         </button>
       </div>
 

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import enq from '../assets/Enquiry/contact.jpg';
+import { Link } from 'react-router-dom'; // Import Link for navigation
+import { useLanguage } from '../TranslateBtn/LanguageContext';
 
 const Enquiry = () => {
-  // State to manage form input values
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -11,18 +12,65 @@ const Enquiry = () => {
     enquiry: '',
     message: '',
   });
+  const [file, setFile] = useState(null); // State for file attachment
+  const fileInputRef = useRef(null); // Reference for file input
 
   // Handle form input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Function to handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here (e.g., sending data to a server)
-    console.log(formData);
+  // Handle file input changes
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]); // Get the selected file
   };
+
+  // Function to handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Create a FormData object to send form data
+    const formDataToSend = new FormData();
+    formDataToSend.append('name', formData.name);
+    formDataToSend.append('email', formData.email);
+    formDataToSend.append('phone', formData.phone);
+    formDataToSend.append('location', formData.location);
+    formDataToSend.append('enquiry', formData.enquiry);
+    formDataToSend.append('message', formData.message);
+    
+    if (file) {
+      formDataToSend.append('file', file); // Append file if exists
+    }
+
+    // Send email using fetch
+    try {
+      const response = await fetch('http://localhost:5000/api/send-email', {
+        method: 'POST',
+        body: formDataToSend,
+      });
+
+      if (response.ok) {
+        console.log('Email sent successfully');
+        // Clear the form after successful submission
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          location: '',
+          enquiry: '',
+          message: '',
+        });
+        setFile(null);
+        fileInputRef.current.value = ""; // Reset the file input
+      } else {
+        console.error('Error sending email:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
+  };
+
+  const { isRegional } = useLanguage();
 
   return (
     <div className='mt-52'>
@@ -34,7 +82,7 @@ const Enquiry = () => {
           className="w-full h-64 object-cover rounded-lg shadow-md"
         />
         <h1 className="absolute inset-0 flex items-center justify-left pl-28 text-4xl font-bold text-white bg-black bg-opacity-50 rounded-lg">
-          ENQUIRY
+          {isRegional ? "விசாரணை" : "ENQUIRY"}
         </h1>
       </div>
 
@@ -53,6 +101,7 @@ const Enquiry = () => {
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your name"
+              required
             />
           </div>
 
@@ -65,6 +114,7 @@ const Enquiry = () => {
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your email"
+              required
             />
           </div>
 
@@ -77,6 +127,7 @@ const Enquiry = () => {
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your phone number"
+              required
             />
           </div>
 
@@ -89,6 +140,7 @@ const Enquiry = () => {
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your location"
+              required
             />
           </div>
 
@@ -99,6 +151,7 @@ const Enquiry = () => {
               value={formData.enquiry}
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+              required
             >
               <option value="">Select Enquiry Type</option>
               <option value="general">Become a New Agent-Retailer / Wholesale Dealer</option>
@@ -120,7 +173,23 @@ const Enquiry = () => {
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your message"
               rows="4"
+              required
             />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 font-semibold mb-2">Attach Form (PDF)</label>
+            <input
+              type="file"
+              accept="application/pdf"
+              onChange={handleFileChange}
+              ref={fileInputRef} // Add reference to the input
+              className="w-full border rounded-md"
+            />
+          </div>
+
+          <div className="mb-4">
+            <Link to="/form" className="text-blue-600 hover:underline">Download the Form</Link>
           </div>
 
           <button

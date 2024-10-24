@@ -1,37 +1,38 @@
 import React from 'react';
+import { useLanguage } from '../TranslateBtn/LanguageContext';
 import ACCimg from '../assets/Procurement/about.jpg';
 
 const Accounts = () => {
+  const { isRegional } = useLanguage(); 
+
   return (
     <div className='mt-52'>
-      {/* Header Section with Background Image */}
       <div className="relative">
         <img 
           src={ACCimg} 
-          alt="Procurement Background" 
+          alt={isRegional ? "கணக்குகள் பின்னணி" : "Accounts Background"} 
           className="w-full h-64 object-cover rounded-lg shadow-md"
         />
         <h1 className="absolute inset-0 flex items-center justify-left pl-28 text-4xl font-bold text-white bg-black bg-opacity-50 rounded-lg">
-          ACCOUNTS
+          {isRegional ? "கணக்குகள்" : "ACCOUNTS"}
         </h1>
       </div>
 
-      {/* Profit & Loss Section */}
       <div className="p-8 mt-8 mx-4 bg-white rounded-lg shadow-lg animate__animated animate__fadeIn">
         <h2 className="text-2xl font-bold text-blue-600 mb-4 text-center">
-          Profit & Loss of the Union 2016-2017 to 2018-2019 (Rs. In Crore)
+          {isRegional 
+            ? "யூனியனின் லாபம் & இழப்பு 2016-2017 முதல் 2018-2019 வரை (கோடிகளில் ரூபாய்)" 
+            : "Profit & Loss of the Union 2016-2017 to 2018-2019 (Rs. In Crore)"
+          }
         </h2>
         
-        {/* Data Display like a Table */}
         <div className="flex flex-col">
-          {/* Header Row */}
           <div className="flex font-bold text-gray-700 bg-blue-200 p-4 rounded-lg mb-2">
-            <div className="flex-1">S.No</div>
-            <div className="flex-1">Year</div>
-            <div className="flex-1">Net Profit/(Loss)</div>
+            <div className="flex-1">{isRegional ? "வரிசை எண்" : "S.No"}</div>
+            <div className="flex-1">{isRegional ? "ஆண்டு" : "Year"}</div>
+            <div className="flex-1">{isRegional ? "நிகர லாபம்/(இழப்பு)" : "Net Profit/(Loss)"}</div>
           </div>
 
-          {/* Data Rows */}
           {[
             { sNo: 1, year: "2016-2017", profit: 1.76 },
             { sNo: 2, year: "2017-2018", profit: 1.54 },

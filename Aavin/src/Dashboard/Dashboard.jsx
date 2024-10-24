@@ -18,6 +18,7 @@ const Dashboard = () => {
   const [visible, setVisible] = useState(false);
   const [isSectionsOpen, setIsSectionsOpen] = useState(false);
   const [isTendersOpen, setIsTendersOpen] = useState(false);
+  const [isProductsOpen, setIsProductsOpen] = useState(false);
   
   const location = useLocation(); // Get the current location
 
@@ -30,6 +31,7 @@ const Dashboard = () => {
       if (!event.target.closest(".dropdown")) {
         setIsSectionsOpen(false);
         setIsTendersOpen(false);
+        setIsProductsOpen(false); 
       }
     };
 
@@ -47,17 +49,20 @@ const Dashboard = () => {
   const closeTenders = () => {
     setIsTendersOpen(false);
   };
+  const closeProducts = () => {
+    setIsProductsOpen(false);
+  };
 
   return (
     <div className="flex">
       {/* Header */}
-      <header className="w-full bg-gradient-to-r from-green-400 to-blue-500 text-white p-4 shadow-md fixed top-0 z-30">
+      <header className="w-full bg-gradient-to-r from-green-600 to-blue-500 text-white p-4 shadow-md fixed top-0 z-30">
         <h1 className="text-center text-2xl font-bold">Dashboard</h1>
       </header>
 
       {/* Left Sidebar Navigation */}
       <nav
-        className={`fixed top-16 left-0 h-full w-60 bg-gradient-to-b from-green-400 to-blue-500 text-white p-4 shadow-lg z-20 transition-opacity duration-700 transform ${
+        className={`fixed top-16 left-0 h-full w-60 bg-gradient-to-b from-green-600 to-blue-500 text-white p-4 shadow-lg z-20 transition-opacity duration-700 transform ${
           visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
         }`}
       >
@@ -105,39 +110,61 @@ const Dashboard = () => {
             </button>
             {isSectionsOpen && (
               <ul className="absolute top-0 left-full bg-[#8BC34A] text-white rounded-md shadow-lg py-2 w-48">
-                <li className="px-4 py-2 hover:bg-gray-200 hover:text-[#007ac5] transition duration-300">
                   <Link to="/dashboard/procurement" onClick={closeSections}>
+                <li className="px-4 py-2 hover:bg-gray-200 hover:text-[#007ac5] transition duration-300">
                     Procurement
-                  </Link>
                 </li>
-                <li className="px-4 py-2 hover:bg-gray-200 hover:text-[#007ac5] transition duration-300">
+                  </Link>
+
                   <Link to="/dashboard/dairy" onClick={closeSections}>
+                <li className="px-4 py-2 hover:bg-gray-200 hover:text-[#007ac5] transition duration-300">
                     Dairy
-                  </Link>
                 </li>
-                <li className="px-4 py-2 hover:bg-gray-200 hover:text-[#007ac5] transition duration-300">
+                  </Link>
+
                   <Link to="/dashboard/marketing" onClick={closeSections}>
-                    Marketing
-                  </Link>
-                </li>
                 <li className="px-4 py-2 hover:bg-gray-200 hover:text-[#007ac5] transition duration-300">
-                  <Link to="/dashboard/accounts" onClick={closeSections}>
-                    Accounts
-                  </Link>
+                    Marketing
                 </li>
+                  </Link>
+
+                  <Link to="/dashboard/accounts" onClick={closeSections}>
+                <li className="px-4 py-2 hover:bg-gray-200 hover:text-[#007ac5] transition duration-300">
+                    Accounts
+                </li>
+                  </Link>
               </ul>
             )}
           </li>
 
-          {/* Products */}
-          <li className="flex items-center transform transition-transform duration-300 hover:scale-110 hover:shadow-md">
+           {/* Products Dropdown */}
+           <li className="relative flex items-center dropdown transform transition-transform duration-300 hover:scale-110 hover:shadow-md">
             <ShoppingBagIcon className="w-5 h-5 mr-2 hover:text-yellow-300 transition duration-300" />
-            <Link
-              to="/dashboard/products"
+            <button
+              onClick={() => setIsProductsOpen(!isProductsOpen)}
               className="font-semibold hover:text-yellow-300 transition duration-300"
             >
               Products
-            </Link>
+            </button>
+            {isProductsOpen && (
+              <ul className="absolute top-0 left-full bg-[#8BC34A] text-white rounded-md shadow-lg py-2 w-48">
+                <Link to="/dashboard/dproduct" onClick={closeProducts}>
+                  <li className="px-4 py-2 hover:bg-gray-200 hover:text-[#007ac5] transition duration-300">
+                    Product
+                  </li>
+                </Link>
+                <Link to="/dashboard/dmilk" onClick={closeProducts}>
+                  <li className="px-4 py-2 hover:bg-gray-200 hover:text-[#007ac5] transition duration-300">
+                    Milk
+                  </li>
+                </Link>
+                <Link to="/dashboard/diceCream" onClick={closeProducts}>
+                  <li className="px-4 py-2 hover:bg-gray-200 hover:text-[#007ac5] transition duration-300">
+                    Ice Cream
+                  </li>
+                </Link>
+              </ul>
+            )}
           </li>
 
           {/* Parlours */}
@@ -195,16 +222,17 @@ const Dashboard = () => {
             </button>
             {isTendersOpen && (
               <ul className="absolute top-0 left-full bg-[#8BC34A] text-white rounded-md shadow-lg py-2 w-48">
+                  <Link to="/dashboard/dtender" onClick={closeTenders}>
                 <li className="px-4 py-2 hover:bg-gray-200 hover:text-[#007ac5] transition duration-300">
-                  <Link to="/dashboard/tenders" onClick={closeTenders}>
                     Tender
-                  </Link>
                 </li>
+                  </Link>
+
+                  <Link to="/dashboard/dforms" onClick={closeTenders}>
                 <li className="px-4 py-2 hover:bg-gray-200 hover:text-[#007ac5] transition duration-300">
-                  <Link to="/dashboard/forms" onClick={closeTenders}>
                     Form
-                  </Link>
                 </li>
+                  </Link>
               </ul>
             )}
           </li>

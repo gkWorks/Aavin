@@ -3,7 +3,7 @@
     animation: scroll 10s linear infinite;
     position: relative;
     bottom: 0;
-    -webkit-animation: scroll 10s linear infinite;
+    
 }
 
   @keyframes scroll {
@@ -14,3 +14,9 @@
       transform: translateY(-100%);
     }
   }
+
+  /* Pause animation on hover */
+.animate-text:hover {
+  animation-play-state: paused; /* Pause the animation */
+}
+  
